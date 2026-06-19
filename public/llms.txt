@@ -1,0 +1,20 @@
+# CYNTAX INNOVATIONS
+
+CYNTAX INNOVATIONS is a Uganda-registered technology company specialising in custom software development, enterprise resource planning (ERP) implementations, digital strategy, and AI-powered business solutions for organisations in Uganda and across Africa.
+
+## Products
+- ZentroApp: An EFRIS-compliant POS and inventory management platform for Ugandan retailers, restaurants, and multi-branch businesses.
+
+## Services
+- Custom Software Development
+- Microsoft Dynamics 365 Business Central Implementation
+- API Integrations & Automation
+- Digital Strategy Consulting
+- Mobile App Development
+
+## Location
+Kampala, Uganda
+
+## Contact
+hello@cyntaxinnovations.com
+https://www.cyntaxinnovations.com
