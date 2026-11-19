@@ -1,54 +1,73 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const TO = 'hello@cyntaxinnovations.com';
+// Replace with a sender on a domain verified in Resend, e.g. "Cyntax Website <website@cyntaxinnovations.com>".
+const FROM = process.env.CONTACT_FROM_EMAIL ?? 'Cyntax Innovations <onboarding@resend.dev>';
+
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+
+const clean = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { name, email, subject, message } = body as {
-    name?: string;
-    email?: string;
-    subject?: string;
-    message?: string;
-  };
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+  }
+
+  // Honeypot: pretend success so bots learn nothing.
+  if (clean(body.website, 200)) return NextResponse.json({ success: true });
+
+  const name = clean(body.name, 120);
+  const email = clean(body.email, 200);
+  const subject = clean(body.subject, 150);
+  const message = clean(body.message, 5000);
 
   if (!name || !email || !subject || !message) {
-    return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
+    return NextResponse.json({ error: 'Please fill in all fields.' }, { status: 400 });
+  }
+  if (!emailRe.test(email)) {
+    return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+  }
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not set');
+    return NextResponse.json({ error: 'Our contact form is temporarily unavailable.' }, { status: 503 });
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
-  }
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding:6px 0;width:90px;color:#55657F;font-size:13px;vertical-align:top">${label}</td><td style="padding:6px 0;color:#0F1B33;font-size:15px">${escapeHtml(value)}</td></tr>`;
 
   const { error } = await resend.emails.send({
-    from: 'CYNTAX INNOVATIONS <onboarding@resend.dev>',
-    to: 'hello@cyntaxinnovations.com',
+    from: FROM,
+    to: TO,
     replyTo: email,
-    subject: `[Contact] ${subject}`,
-    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    subject: `Website enquiry: ${subject.replace(/[\r\n]+/g, ' ')}`,
+    text: `Name: ${name}\nEmail: ${email}\nTopic: ${subject}\n\n${message}`,
     html: `
-      <div style="font-family: 'Courier New', monospace; background: #0a0f0a; color: #ffffff; padding: 32px; max-width: 600px;">
-        <div style="border-bottom: 1px solid rgba(0,255,127,0.2); padding-bottom: 16px; margin-bottom: 24px;">
-          <h1 style="color: #00FF7F; font-size: 18px; letter-spacing: 0.2em; margin: 0;">CYNTAX INNOVATIONS</h1>
-          <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin: 4px 0 0;">// New Contact Form Submission //</p>
+      <div style="font-family:Inter,Segoe UI,Arial,sans-serif;background:#EEF3FA;padding:32px">
+        <div style="max-width:600px;margin:0 auto;background:#FFFFFF;border-radius:12px;overflow:hidden">
+          <div style="background:#0F2B5B;padding:20px 28px;border-bottom:4px solid #2F8CFF">
+            <p style="margin:0;color:#FFFFFF;font-weight:800;font-size:16px;letter-spacing:.04em">CYNTAX INNOVATIONS</p>
+            <p style="margin:4px 0 0;color:#B4C3DC;font-size:13px">New website enquiry</p>
+          </div>
+          <div style="padding:24px 28px">
+            <table style="width:100%;border-collapse:collapse">${row('Name', name)}${row('Email', email)}${row('Topic', subject)}</table>
+            <p style="margin:24px 0 8px;color:#55657F;font-size:13px">Message</p>
+            <p style="margin:0;color:#0F1B33;font-size:15px;line-height:1.6;white-space:pre-wrap">${escapeHtml(message)}</p>
+          </div>
         </div>
-        <table style="width: 100%; border-collapse: collapse;">
-          <tr><td style="color: rgba(255,255,255,0.4); font-size: 12px; padding: 4px 0; width: 80px;">NAME</td><td style="color: #ffffff; font-size: 14px;">${name}</td></tr>
-          <tr><td style="color: rgba(255,255,255,0.4); font-size: 12px; padding: 4px 0;">EMAIL</td><td style="color: #00FF7F; font-size: 14px;">${email}</td></tr>
-          <tr><td style="color: rgba(255,255,255,0.4); font-size: 12px; padding: 4px 0;">SUBJECT</td><td style="color: #ffffff; font-size: 14px;">${subject}</td></tr>
-        </table>
-        <div style="margin-top: 24px; border-top: 1px solid rgba(0,255,127,0.1); padding-top: 16px;">
-          <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin: 0 0 8px;">MESSAGE</p>
-          <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
-        </div>
-      </div>
-    `,
+      </div>`,
   });
 
   if (error) {
-    return NextResponse.json({ error: 'Failed to send email. Please try again.' }, { status: 500 });
+    console.error('Resend error', error);
+    return NextResponse.json({ error: 'We could not send your message right now.' }, { status: 502 });
   }
-
   return NextResponse.json({ success: true });
 }
