@@ -81,7 +81,7 @@ export default function AboutPage() {
                 ignore local tax rules, break when the internet drops, or cost more to maintain than they save.
               </p>
               <p>
-                We started Cyntax Innovations in {site.founded} to change that. We build and support software, ERP and
+                We started Cyntax Innovations (Cyntax, spelled with a C) in {site.founded} to change that. We build and support software, ERP and
                 integrations that fit how East African businesses really operate, from URA EFRIS compliance to mobile
                 money, and we stay with our clients long after launch.
               </p>

@@ -5,6 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import JsonLd from '@/components/JsonLd';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import ScrollEffects from '@/components/motion/ScrollEffects';
+import { products } from '@/lib/products';
 import { site } from '@/lib/site';
 import './globals.css';
 
@@ -39,13 +40,18 @@ export const metadata: Metadata = {
     locale: 'en_UG',
     url: '/',
     siteName: site.name,
-    title: 'Cyntax Innovations | Software, ERP & Digital Solutions in Uganda',
+    title: 'Cyntax Innovations | Software, Cybersecurity & ERP in Uganda',
     description: site.tagline,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Cyntax Innovations',
     description: site.tagline,
+  },
+  // Set GOOGLE_SITE_VERIFICATION / BING_SITE_VERIFICATION in Vercel to verify Search Console / Bing.
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.BING_SITE_VERIFICATION ? { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } : undefined,
   },
 };
 
@@ -62,13 +68,27 @@ const organizationLd = {
       '@type': 'Organization',
       '@id': `${site.url}/#organization`,
       name: site.name,
+      legalName: site.legalName,
+      alternateName: site.alternateNames,
       url: site.url,
-      logo: `${site.url}/brand/icon-512.png`,
+      logo: { '@type': 'ImageObject', url: `${site.url}/brand/icon-512.png`, width: 512, height: 512 },
       image: `${site.url}/brand/cyntax-social-avatar-800.png`,
       description: site.description,
       foundingDate: site.founded,
-      founder: { '@type': 'Person', name: 'Joseph Mukiibi', jobTitle: 'Co-Founder & CTO' },
-      knowsAbout: ['Software development', 'Cybersecurity', 'ERP', 'Microsoft Dynamics 365 Business Central', 'URA EFRIS'],
+      founder: { '@type': 'Person', name: 'Joseph Mukiibi', jobTitle: 'Co-Founder & CTO', url: `${site.url}/team#joseph-mukiibi` },
+      slogan: 'Secure software that runs your business. Built in Uganda.',
+      brand: products.map((p) => ({ '@type': 'Brand', name: p.name, url: p.website ?? `${site.url}/products/${p.slug}` })),
+      ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
+      knowsAbout: [
+        'Software development',
+        'Cybersecurity',
+        'Penetration testing',
+        'Digital forensics',
+        'Network security',
+        'ERP',
+        'Microsoft Dynamics 365 Business Central',
+        'URA EFRIS',
+      ],
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Kampala',
@@ -88,7 +108,9 @@ const organizationLd = {
       '@type': 'WebSite',
       '@id': `${site.url}/#website`,
       url: site.url,
+      // Google uses these for the site name shown above search results.
       name: site.name,
+      alternateName: ['Cyntax', 'cyntaxinnovations.com'],
       publisher: { '@id': `${site.url}/#organization` },
       inLanguage: 'en',
     },

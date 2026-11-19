@@ -1,6 +1,12 @@
 export const site = {
   name: 'Cyntax Innovations',
   legalName: 'Cyntax Innovations',
+  // Spellings people search for. Helps Google connect "Cyntax" queries to us (not "Syntax").
+  alternateNames: ['Cyntax', 'CYNTAX INNOVATIONS', 'Cyntax Innovations Uganda'],
+  // TODO: add official profile URLs as they exist (LinkedIn company page, X, Facebook,
+  // Instagram, YouTube, Google Business Profile). These are the strongest signal of which
+  // "Cyntax" is you.
+  sameAs: [] as string[],
   url: 'https://cyntaxinnovations.com',
   email: 'hello@cyntaxinnovations.com',
   location: 'Kampala, Uganda',
