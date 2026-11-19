@@ -157,7 +157,7 @@ export default function Home() {
               intro="Our engineering is led by a software developer completing a Master’s in Cybersecurity. Every system we build follows secure development practice from day one, and we help you protect the systems you already have."
             />
             <div className="-mt-4 flex flex-wrap gap-3">
-              <Button href="/services/cybersecurity" variant="onDark" arrow>
+              <Button href="/cybersecurity" variant="onDark" arrow>
                 Cybersecurity services
               </Button>
               <Button href="/contact?topic=cybersecurity" variant="onDarkSecondary">

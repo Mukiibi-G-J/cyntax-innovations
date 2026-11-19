@@ -29,6 +29,16 @@ export const photos = {
   code: { src: u('1555949963-ff9fe0c870eb'), alt: 'Close-up of code on a computer screen' },
   kampalaSunset: { src: u('1763220207281-c4d0febb61a8'), alt: 'Kampala city skyline at sunset, seen from Nsambya' },
   kampalaSkyline: { src: u('1777887544354-74a7248c8a74'), alt: 'Kampala skyline with modern buildings among trees' },
+  analystScreens: { src: u('1510915228340-29c85a43dcfe'), alt: 'Security analyst reviewing code on several monitors in a dark room' },
+  fiberSwitch: { src: u('1594915440248-1e419eba6611'), alt: 'Fibre optic cables connected to a network switch in a server rack' },
+  laptopLock: { src: u('1614064548237-096f735f344f'), alt: 'Padlock on a laptop keyboard surrounded by light trails' },
+  hardDrive: { src: u('1601737487795-dab272f52420'), alt: 'Open hard disk drive showing its platter and read arm' },
+  dataCenter: { src: u('1639066648921-82d4500abf1a'), alt: 'Rows of server cabinets in a dimly lit data centre' },
+  responder: { src: u('1620825937374-87fc7d6bddc2'), alt: 'Engineer working at a computer with green-lit screens' },
+  patchPanel: { src: u('1544197150-b99a580bb7a8'), alt: 'Network cables plugged into a patch panel' },
+  phoneLock: { src: u('1584433144859-1fc3ab64a957'), alt: 'Smartphone showing a security lock icon on a desk' },
+  codeScreen: { src: u('1607799279861-4dd421887fb3'), alt: 'Laptop screen displaying colourful source code' },
+  openPadlock: { src: u('1618060932014-4deda4932554'), alt: 'Open padlock surrounded by scattered keyboard keys' },
   kampalaCity: { src: u('1675756261486-09bd1e0f6c8a'), alt: 'View over central Kampala on a sunny day' },
 } satisfies Record<string, Photo>;
 
@@ -53,4 +63,16 @@ export const postPhoto: Record<string, PhotoKey> = {
   'cybersecurity-basics-for-ugandan-smes': 'circuit',
   'efris-explained-for-ugandan-businesses': 'shopkeeperPhone',
   'spreadsheets-to-erp-signs-its-time': 'boardroom',
+};
+
+export const securityPhoto: Record<string, PhotoKey> = {
+  'security-assessments': 'analystScreens',
+  'network-security': 'fiberSwitch',
+  'endpoint-protection': 'laptopLock',
+  'digital-forensics': 'hardDrive',
+  'backup-recovery': 'dataCenter',
+  'incident-response': 'responder',
+  'managed-security': 'patchPanel',
+  'awareness-compliance': 'workshop',
+  'secure-development-testing': 'codeScreen',
 };

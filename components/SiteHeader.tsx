@@ -14,10 +14,15 @@ const isActivePath = (pathname: string, href: string) => {
   return path !== '/' && (pathname === path || pathname.startsWith(`${path}/`));
 };
 
+// A link that is another menu's own section (e.g. "Cybersecurity" listed under "What we do")
+// should only highlight that other menu.
+const sectionRoots = new Set(mainNav.flatMap((m) => (m.kind === 'menu' ? [m.overview.href] : [])));
+
 const menuIsActive = (pathname: string, item: MenuItem) =>
   item.kind === 'link'
     ? isActivePath(pathname, item.href)
-    : isActivePath(pathname, item.overview.href) || item.links.some((l) => isActivePath(pathname, l.href));
+    : isActivePath(pathname, item.overview.href) ||
+      item.links.some((l) => !(sectionRoots.has(l.href) && l.href !== item.overview.href) && isActivePath(pathname, l.href));
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -111,7 +116,7 @@ export default function SiteHeader() {
                   {open && (
                     <div
                       id={`menu-${key}`}
-                      className={`absolute left-1/2 top-[calc(100%+14px)] -translate-x-1/2 rounded-2xl bg-white p-3 shadow-[0_24px_48px_-16px_rgb(15_43_91/0.3)] ring-1 ring-line ${
+                      className={`absolute left-1/2 top-[calc(100%+14px)] max-h-[calc(100dvh-6rem)] -translate-x-1/2 overflow-y-auto rounded-2xl bg-white p-3 shadow-[0_24px_48px_-16px_rgb(15_43_91/0.3)] ring-1 ring-line ${
                         item.columns === 2 ? 'w-[40rem]' : 'w-[22rem]'
                       }`}
                     >

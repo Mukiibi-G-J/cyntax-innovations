@@ -6,7 +6,7 @@ import ProcessSteps from '@/components/ProcessSteps';
 import Button from '@/components/ui/Button';
 import Icon from '@/components/ui/Icon';
 import { PageHero, Section, SectionHeader } from '@/components/ui/Section';
-import { industries, services } from '@/lib/services';
+import { industries, serviceHref, services } from '@/lib/services';
 import { photos } from '@/lib/photos';
 import { site } from '@/lib/site';
 
@@ -24,7 +24,7 @@ const servicesLd = {
   itemListElement: services.map((s, i) => ({
     '@type': 'ListItem',
     position: i + 1,
-    url: `${site.url}/services/${s.slug}`,
+    url: `${site.url}${serviceHref(s)}`,
     name: s.title,
   })),
 };

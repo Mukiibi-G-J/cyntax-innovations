@@ -8,11 +8,22 @@
 
 ## Services
 - [Web & mobile software](https://cyntaxinnovations.com/services/custom-software)
-- [Cybersecurity](https://cyntaxinnovations.com/services/cybersecurity): assessments, secure code review, hardening, awareness training, Data Protection and Privacy Act 2019 readiness
+- [Cybersecurity](https://cyntaxinnovations.com/cybersecurity): see Cybersecurity section below
 - [ERP & Business Central](https://cyntaxinnovations.com/services/erp)
 - [APIs & integrations](https://cyntaxinnovations.com/services/integrations)
 - [ICT consulting & strategy](https://cyntaxinnovations.com/services/strategy)
 - [Automation & AI](https://cyntaxinnovations.com/services/automation)
+
+## Cybersecurity
+- [Security assessments & penetration testing](https://cyntaxinnovations.com/cybersecurity/security-assessments)
+- [Network security & firewalls](https://cyntaxinnovations.com/cybersecurity/network-security)
+- [Endpoint, server & email protection](https://cyntaxinnovations.com/cybersecurity/endpoint-protection)
+- [Digital forensics](https://cyntaxinnovations.com/cybersecurity/digital-forensics): investigations and forensic lab advisory, supply, installation, licensing and training
+- [Secure backup & disaster recovery](https://cyntaxinnovations.com/cybersecurity/backup-recovery)
+- [Incident response](https://cyntaxinnovations.com/cybersecurity/incident-response)
+- [Managed security & IT support](https://cyntaxinnovations.com/cybersecurity/managed-security)
+- [Awareness training & compliance](https://cyntaxinnovations.com/cybersecurity/awareness-compliance): including Data Protection and Privacy Act 2019 readiness
+- [Secure development & software testing](https://cyntaxinnovations.com/cybersecurity/secure-development-testing)
 
 ## Products
 - [ZentroApp](https://cyntaxinnovations.com/products/zentroapp): EFRIS-compliant, offline-first POS and inventory (https://zentroapp.app)

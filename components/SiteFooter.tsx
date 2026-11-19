@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Logo from './Logo';
 import { Container } from './ui/Section';
 import { products } from '@/lib/products';
-import { services } from '@/lib/services';
+import { securityServices } from '@/lib/security';
+import { serviceHref, services } from '@/lib/services';
 import { formatPhone, site } from '@/lib/site';
 
 const columns = [
@@ -15,7 +16,13 @@ const columns = [
       { label: 'Contact', href: '/contact' },
     ],
   },
-  { title: 'What we do', links: services.map((s) => ({ label: s.title, href: `/services/${s.slug}` })) },
+  { title: 'What we do', links: services.map((s) => ({ label: s.title, href: serviceHref(s) })) },
+  {
+    title: 'Cybersecurity',
+    links: [
+      ...securityServices.map((s) => ({ label: s.title.split(' & ')[0].split(',')[0], href: `/cybersecurity/${s.slug}` })),
+    ],
+  },
   {
     title: 'Products',
     links: [...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` })), { label: 'All products', href: '/products' }],
@@ -54,7 +61,7 @@ export default function SiteFooter() {
           </address>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 lg:col-span-8">
+        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8 xl:grid-cols-5">
           {columns.map((col) => (
             <nav key={col.title} aria-label={`Footer: ${col.title}`}>
               <h2 className="font-display text-small font-bold text-white">{col.title}</h2>

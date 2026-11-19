@@ -133,7 +133,7 @@ const slides = [
     title: 'Find the weaknesses before attackers do.',
     text: 'Security assessments, secure code review, hardening and staff training, led by a developer completing a Master’s in Cybersecurity.',
     primary: { label: 'Request a security review', href: '/contact?topic=cybersecurity' },
-    secondary: { label: 'Cybersecurity services', href: '/services/cybersecurity' },
+    secondary: { label: 'Cybersecurity services', href: '/cybersecurity' },
     visual: <SecurityVisual />,
     photo: photos.padlock,
   },

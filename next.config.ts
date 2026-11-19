@@ -23,6 +23,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/zentroapp", destination: "/products/zentroapp", permanent: true },
+      { source: "/services/cybersecurity", destination: "/cybersecurity", permanent: true },
       { source: "/services/mobile", destination: "/services/custom-software", permanent: true },
     ];
   },

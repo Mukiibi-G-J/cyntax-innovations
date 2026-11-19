@@ -1,6 +1,7 @@
 import type { IconName } from '@/components/ui/Icon';
 import { products } from './products';
-import { services } from './services';
+import { securityServices } from './security';
+import { serviceHref, services } from './services';
 
 export type MenuLink = { label: string; href: string; description?: string; icon?: IconName };
 export type MenuItem =
@@ -23,8 +24,15 @@ export const mainNav: MenuItem[] = [
     label: 'What we do',
     kind: 'menu',
     columns: 2,
-    links: services.map((s) => ({ label: s.title, href: `/services/${s.slug}`, description: s.summary, icon: s.icon })),
+    links: services.map((s) => ({ label: s.title, href: serviceHref(s), description: s.summary, icon: s.icon })),
     overview: { label: 'All services', href: '/services' },
+  },
+  {
+    label: 'Cybersecurity',
+    kind: 'menu',
+    columns: 2,
+    links: securityServices.map((s) => ({ label: s.title, href: `/cybersecurity/${s.slug}`, description: s.summary, icon: s.icon })),
+    overview: { label: 'Cybersecurity overview', href: '/cybersecurity' },
   },
   {
     label: 'Products',

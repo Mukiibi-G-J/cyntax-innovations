@@ -2,6 +2,8 @@ import type { IconName } from '@/components/ui/Icon';
 
 export interface Service {
   slug: string;
+  /** Optional custom page (e.g. Cybersecurity has its own section) */
+  href?: string;
   icon: IconName;
   title: string;
   /** One line used on cards and menus */
@@ -44,6 +46,7 @@ export const services: Service[] = [
   },
   {
     slug: 'cybersecurity',
+    href: '/cybersecurity',
     icon: 'shield',
     title: 'Cybersecurity',
     summary: 'Find and fix weaknesses before attackers do, and build security into everything you run.',
@@ -181,3 +184,5 @@ export const industries: { icon: IconName; title: string; text: string }[] = [
   { icon: 'users', title: 'NGOs & membership bodies', text: 'Reporting, donor tracking and member portals.' },
   { icon: 'erp', title: 'Growing SMEs', text: 'ERP, integrations and automation to scale operations.' },
 ];
+
+export const serviceHref = (s: Service) => s.href ?? `/services/${s.slug}`;

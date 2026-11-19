@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Icon from './ui/Icon';
-import { photos, postPhoto, productPhoto, servicePhoto, type PhotoKey } from '@/lib/photos';
+import { photos, postPhoto, productPhoto, securityPhoto, servicePhoto, type PhotoKey } from '@/lib/photos';
+import type { SecurityService } from '@/lib/security';
 import type { Post } from '@/lib/posts';
 import { formatDate } from '@/lib/posts';
 import type { Product } from '@/lib/products';
-import type { Service } from '@/lib/services';
+import { serviceHref, type Service } from '@/lib/services';
 
 const cardBase =
   'group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-white transition duration-300 hover:-translate-y-1 hover:border-navy/30 hover:shadow-card';
@@ -38,8 +39,24 @@ function CardPhoto({ photo, className = 'h-44' }: { photo?: PhotoKey; className?
 
 export function ServiceCard({ service: s }: { service: Service }) {
   return (
-    <Link href={`/services/${s.slug}`} className={cardBase}>
+    <Link href={serviceHref(s)} className={cardBase}>
       <CardPhoto photo={servicePhoto[s.slug]} />
+      <div className="relative flex flex-1 flex-col p-6 pt-0">
+        <span className="-mt-6 inline-flex size-12 items-center justify-center rounded-xl bg-navy text-white shadow-lg ring-4 ring-white">
+          <Icon name={s.icon} />
+        </span>
+        <h3 className="mt-4 text-h3 font-bold">{s.title}</h3>
+        <p className="mt-2 flex-1 text-steel">{s.summary}</p>
+        <More label="Learn more" />
+      </div>
+    </Link>
+  );
+}
+
+export function SecurityCard({ service: s }: { service: SecurityService }) {
+  return (
+    <Link href={`/cybersecurity/${s.slug}`} className={cardBase}>
+      <CardPhoto photo={securityPhoto[s.slug]} className="h-40" />
       <div className="relative flex flex-1 flex-col p-6 pt-0">
         <span className="-mt-6 inline-flex size-12 items-center justify-center rounded-xl bg-navy text-white shadow-lg ring-4 ring-white">
           <Icon name={s.icon} />

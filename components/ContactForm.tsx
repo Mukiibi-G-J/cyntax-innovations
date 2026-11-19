@@ -5,10 +5,12 @@ import { useState } from 'react';
 import { buttonClass } from './ui/Button';
 import Icon from './ui/Icon';
 import { products } from '@/lib/products';
+import { securityServices } from '@/lib/security';
 import { services } from '@/lib/services';
 
 const topics = [
   ...services.map((s) => ({ value: s.slug, label: s.title })),
+  ...securityServices.map((s) => ({ value: s.slug, label: `Cybersecurity: ${s.title}` })),
   ...products.map((p) => ({ value: p.slug, label: `${p.name} demo` })),
   { value: 'other', label: 'Something else' },
 ];

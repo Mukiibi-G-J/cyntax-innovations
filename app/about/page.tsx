@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button';
 import Icon, { type IconName } from '@/components/ui/Icon';
 import { Eyebrow, PageHero, Section, SectionHeader } from '@/components/ui/Section';
 import { products } from '@/lib/products';
-import { industries, services } from '@/lib/services';
+import { industries, serviceHref, services } from '@/lib/services';
 import { photos } from '@/lib/photos';
 import { site } from '@/lib/site';
 import { team } from '@/lib/team';
@@ -117,7 +117,7 @@ export default function AboutPage() {
             <ul className="mt-4 divide-y divide-line border-y border-line">
               {services.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`} className="group flex items-center gap-4 py-4">
+                  <Link href={serviceHref(s)} className="group flex items-center gap-4 py-4">
                     <Icon name={s.icon} className="size-5 shrink-0 text-navy" />
                     <span className="flex-1 font-display font-bold text-navy">{s.title}</span>
                     <Icon name="arrowRight" className="size-4 text-steel transition-transform group-hover:translate-x-1" />
